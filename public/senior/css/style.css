@@ -1,0 +1,677 @@
+:root {
+    --primary: #007bff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, .panel {
+    width: 100%;
+    height: 100%;
+}
+
+.iconfont {
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #494949;
+}
+
+.q5row {
+    display: block;
+    padding: 10px 0;
+}
+
+.q5row:after {
+    content: '';
+    clear: both;
+    display: block;
+    width: 100%;
+}
+
+.q5button {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: var(--primary);
+    outline: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.q5button:hover {
+    opacity: 0.8;
+}
+
+.q5button.btnsuccess {
+    background-color: #00bb33;
+    color: white;
+}
+
+.q5button.btnwarning {
+    background-color: #fad102;
+    color: white;
+}
+
+.q5button.btndanger {
+    background-color: #e00000;
+    color: white;
+}
+
+.q5nav_title {
+    line-height: 35px;
+    position: relative;
+    padding-left: 20px;
+    color: var(--primary);
+    font-weight: bold;
+    margin-top: 10px;
+    background-color: #e5f2ff;
+}
+
+.q5nav_title:after {
+    position: absolute;
+    content: '';
+    width: 4px;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    background-color: var(--primary);
+}
+
+.q5table {
+    width: 100%;
+
+}
+
+.q5table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.q5table table th,
+.q5table table td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.q5table table .link {
+
+}
+
+.q5table table .link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.q5table table tr td:last-child button {
+    float: right;
+}
+
+.q5table table tr:nth-child(2n) {
+    background-color: #f5f9fc;
+}
+
+.q5table table tr td:nth-child(1),
+.q5table table tr td:nth-child(3),
+.q5table table tr td:nth-child(4),
+.q5table table tr td:nth-child(5) {
+    text-align: center;
+}
+
+.q5table table tr td:last-child {
+    text-align: center;
+}
+
+.q5table table tr td:last-child a {
+    padding: 5px 8px;
+    display: inline-block;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.q5table table tr td:last-child a:hover {
+    opacity: 0.9;
+}
+
+.q5input {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.q5input .lab {
+    display: block;
+    line-height: 45px;
+    color: #656565;
+}
+
+.q5input .form-control {
+    display: block;
+    width: 100%;
+    line-height: 35px;
+    height: 35px;
+    outline: none;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.q5input .form-control:focus {
+    border-color: #6cccfb;
+    border-width: 2px;
+}
+
+.q5input .cover {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ddd;
+    background-size: cover;
+}
+.q5input.line .lab{
+    width: 120px;
+    display: inline-block;
+}
+.q5input.line .form-control{
+    width: 220px;
+    display: inline-block;
+}
+.q5input.line .btn{
+    width: 120px;
+    height: 35px;
+    border-width: 0;
+    letter-spacing: 2px;
+    margin-left: 10px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+}
+.q5input.line .btn:hover{
+    opacity: 0.8;
+}
+.q5radio {
+    position: relative;
+    line-height: 35px;
+    padding-left: 25px;
+    margin-right: 20px;
+}
+
+.q5radio [type="radio"] {
+    opacity: 0;
+    position: absolute;
+    float: left;
+
+}
+
+.q5radio .ico {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: -0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+.q5radio [type="radio"]:checked + .ico {
+    border-color: #43a047;
+}
+
+.q5radio [type="radio"]:checked + .ico::before {
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #43a047;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: block;
+    margin: auto;
+}
+
+
+.q5pop {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.q5pop .darg-element {
+    width: 80%;
+    height: 80%;
+    background: white;
+    left: 100px;
+    top: 100px;
+    position: relative;
+    box-shadow: 2px 2px 8px 0px #5f5f5f;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.q5pop .darg-element .title-bar {
+    height: 40px;
+    background: #ddd;
+    line-height: 40px;
+    text-indent: 1rem;
+    user-select: none;
+}
+
+.q5pop .darg-element .btns {
+    float: right;
+    position: relative;
+    transform: translateY(-100%);
+    top: -5px;
+    right: 10px;
+    user-select: none;
+}
+
+.q5pop .darg-element .btns span {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.q5pop .darg-element .btns span:hover {
+    background: #c3c3c3;
+}
+.q5pop .darg-element .drag-content{
+   padding: 20px;
+}
+
+
+.panel {
+    padding-left: 250px;
+}
+
+.panel_left {
+    width: 250px;
+    height: 100%;
+    background-color: var(--primary);
+    float: left;
+    margin-left: -250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel_left .title {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    background-image: linear-gradient(to right bottom, #7dd6ff, #008ce4);
+    color: white;
+}
+
+.panel_left .title .iconfont {
+    margin-right: 5px;
+}
+
+.panel_left .user_cent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    user-select: none;
+}
+
+.panel_left .user_cent .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+}
+
+.panel_left .user_cent .nick {
+    color: white;
+    line-height: 35px;
+    font-weight: bolder;
+
+}
+
+.panel_left .m_wp {
+    flex: 1;
+}
+
+
+.panel_left .m_wp .menu_list {
+
+}
+
+.panel_left .m_wp .menu_list .item {
+    margin-bottom: 5px;
+}
+
+.panel_left .m_wp .menu_list .item .log {
+    display: block;
+    color: white;
+    text-align: center;
+    line-height: 45px;
+    border-bottom: 1px solid #439af7;
+}
+
+.panel_left .m_wp .menu_list .item .log.active,
+.panel_left .m_wp .menu_list .item .log:hover {
+    color: white;
+    background: #3093fe;
+}
+
+.panel_left .m_wp .menu_list .item .log .iconfont {
+    padding-right: 10px;
+}
+
+.panel_left .cy {
+    padding: 20px 0;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+.panel_right {
+    width: 100%;
+    background-color: #f8f9fc;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.panel_right .top {
+    height: 50px;
+    padding: 10px;
+    background-color: white;
+}
+
+.panel_right .short_left {
+    float: left;
+}
+
+.panel_right .short_left .menu_btn {
+    color: var(--primary);
+    font-size: 30px;
+    position: relative;
+    top: -10px;
+    cursor: pointer;
+}
+
+.panel_right .short_left .menu_btn:hover {
+    opacity: 0.7;
+}
+
+.panel_right .short_left .notificaion {
+    float: right;
+    margin-left: 10px;
+    line-height: 30px;
+}
+
+.panel_right .short_right {
+    float: right;
+    display: flex;
+    align-items: center;
+}
+
+.panel_right .short_right .item {
+    display: inline-block;
+    color: var(--primary);
+    margin-left: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.panel_right .short_right .item:first-child {
+    background-color: #ff7000;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.panel_right .short_right .item:first-child .iconfont {
+    padding-right: 5px;
+}
+
+.panel_right .short_right .item:hover {
+    opacity: 0.8;
+}
+
+.panel_right .short_right .item i {
+    vertical-align: text-bottom;
+    margin-right: 2px;
+}
+
+.panel_right .short_right div:last-of-type {
+    display: inline-block;
+    position: relative;
+    right: 10px;
+    margin-left: 20px;
+}
+
+.panel_right .short_right .user_cent .i_user .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.panel_right .short_right .user_cent .i_user .i_u {
+    display: inline-block;
+    line-height: 0;
+}
+
+.panel_right .short_right .user_cent .i_user .i_u .nick {
+    vertical-align: baseline;
+    margin-right: 5px;
+    position: relative;
+    top: -7px;
+}
+
+.panel_right .main {
+    flex: 1;
+    background-color: #eff0f4;
+    padding: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: inset 2px 2px 5px 1px #ddd, inset -2px -2px 5px 1px #ddd, inset -2px 2px 5px 1px #ddd, inset 2px -2px 5px 1px #ddd;
+}
+
+.panel_right .main .cont {
+    overflow: auto;
+    flex: 1;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: white;
+    padding: 10px;
+}
+
+.panel_right .main > .title {
+    font-weight: bolder;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    user-select: none;
+}
+
+
+.dashboard .boat {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.dashboard .boat .item {
+    min-width: 150px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    width: 25%;
+    margin-right: 15px;
+    position: relative;
+    color: white;
+}
+
+.dashboard .boat .item:nth-child(1) {
+    background-color: #fe5455;
+}
+
+.dashboard .boat .item:nth-child(2) {
+    background-color: #5ac9ff;
+}
+
+.dashboard .boat .item:nth-child(3) {
+    background-color: #fed324;
+}
+
+.dashboard .boat .item:nth-child(4) {
+    background-color: #32d26b;
+}
+
+.dashboard .boat .item:last-child {
+    margin-right: 0;
+}
+
+.dashboard .boat .item p:first-child {
+    margin-bottom: 15px;
+    line-height: 35px;
+}
+
+.dashboard .boat .item p:last-child {
+    font-weight: bolder;
+    font-size: 1.5rem;
+}
+
+.dashboard .boat .item p:last-child span {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.dashboard .boat .item .iconfont {
+    font-size: 60px;
+}
+
+.dashboard .sysinfo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.dashboard .sysinfo .item {
+    width: 50%;
+    display: flex;
+}
+
+.dashboard .sysinfo .item span {
+    width: 50%;
+    line-height: 35px;
+    color: #a1a0a0;
+
+}
+
+.dashboard .sysinfo .item span:first-child {
+    text-align: right;
+    margin-right: 20px;
+    color: var(--primary);
+    width: 30%;
+}
+
+/*登录面板*/
+.login_alone {
+    background-image: linear-gradient(to right bottom, #7dd6ff, #008ce4);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_alone .login_bin {
+    width: 360px;
+
+}
+
+.login_alone .login_bin form {
+    padding: 20px;
+}
+
+.login_alone .login_bin h1 {
+    text-align: center;
+    padding: 20px 0;
+    color: white;
+}
+
+.login_alone .login_bin .input-box {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.login_alone .login_bin .input-box .ico {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_alone .login_bin .input-box .ico .iconfont {
+    color: #18aef6;
+}
+
+.login_alone .login_bin .input-box:first-of-type .ico .iconfont {
+    font-size: 24px;
+}
+
+.login_alone .login_bin .input-box input[type="text"],
+.login_alone .login_bin .input-box input[type="password"] {
+    width: 100%;
+    line-height: 45px;
+    padding-left: 50px;
+    outline: none;
+    background-color: #fff;
+    border: solid #ddd 1px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px 0px #349fd3;
+}
+
+.login_alone .login_bin .input-box input[type="submit"] {
+    width: 100%;
+    background-color: #f77f11;
+    outline: none;
+    border-radius: 4px;
+    line-height: 45px;
+    border: none;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-indent: -2px;
+    background-image: linear-gradient(to right, #2bbaff, #5ac9ff);
+    background-size: 200% 100%;
+    box-shadow: 1px 1px 4px 0px #349fd3;
+}
+
+.login_alone .login_bin .input-box input[type="submit"]:hover {
+    background-position-x: 100%;
+}
