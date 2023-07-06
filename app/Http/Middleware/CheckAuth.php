@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\ResponseHelper;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class CheckAuth
             if($request->method() == "GET"){
                 return  redirect(route('Auth::login') . "?redirect=" . urlencode($request->fullUrl()),302);
             }else{
-                return  returnJSON("未登录",[],422);
+                return  ResponseHelper::returnJSON("未登录",[],422);
             }
 
         }

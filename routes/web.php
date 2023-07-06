@@ -18,6 +18,7 @@ Route::group(["as"=>'Home::'],function (){
     Route::get('/article/{article}',[\App\Http\Controllers\home\IndexControl::class,"article"])->name('article');
     Route::get('/tag/{name}',[\App\Http\Controllers\home\IndexControl::class,"tag"])->name('tag');
     Route::get('/category/{category}',[\App\Http\Controllers\home\IndexControl::class,"category"])->name('category');
+    Route::get('/category/{category}',[\App\Http\Controllers\home\IndexControl::class,"category"])->name('category');
 });
 //
 Route::match(["get",'post'],"/register",[\App\Http\Controllers\AuthController::class,"register"])->name('Auth::register');
@@ -33,4 +34,10 @@ Route::group(["as"=>'Admin::',"prefix" => "admin","middleware" => "ck"],function
     Route::resource("article",\App\Http\Controllers\admin\ArticleController::class);
     Route::resource("category",\App\Http\Controllers\admin\CategoryController::class);
     Route::resource("tag",\App\Http\Controllers\admin\TagController::class);
+
+    //生成七牛token
+    Route::post('qngenerate_token',[\App\Http\Controllers\admin\AdminController::class,"qngenerate_token"])->name('qngenerate_token');
+
+
+
 });

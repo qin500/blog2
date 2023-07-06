@@ -1,5 +1,5 @@
 @extends("admin.default")
-@section('title',"编辑文章 ")
+@section('title',"编辑文章")
 @section('content')
 
     <div class="title">
@@ -13,14 +13,16 @@
             </div>
             <div class="q5input">
                 <label class="lab" for="">封面</label>
-                <div class="cover" cover="{{ $article->cover }}" style="background-image: url('{{ $article->cover }}')"></div>
+                <div class="cover" cover="{{ $article->cover }}"
+                     style="background-image: url('{{ $article->cover }}')"></div>
             </div>
             <div class="q5input">
-                <label class="lab" for="">分类</label>
-                <select class="form-control" name="category" id="">
+                <label class="lab">分类 <a class="add" data-categoryadd href="{{ route('Admin::category.create') }}">添加分类</a></label>
+                <select class="form-control" name="category">
                     <option value="0">请选择分类</option>
                     @foreach($cats as $k=>$v)
-                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                        <option
+                            {{ $article->cid == $v->id ? 'selected' :'' }}  value="{{ $v->id }}">{{ $v->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -31,15 +33,15 @@
             <div class="q5input">
                 <label class="lab" for="">公开</label>
                 <label class="q5radio"><input value="1" type="radio"
-                                              {{ $article->publish == 1 ? "checked":'' }} name="isshow"><i
+                                              {{ $article->publish == 1 ? "checked":'' }} name="publish"><i
                         class="ico"></i>显示</label>
                 <label class="q5radio"><input value="0" type="radio"
-                                              {{ $article->publish == 0 ? "checked":'' }} name="isshow"><i
+                                              {{ $article->publish == 0 ? "checked":'' }} name="publish"><i
                         class="ico"></i>隐藏</label>
             </div>
             <div class="q5input">
                 <a data-publish class="q5button">发布</a>
-                <a data-preview class="q5button btnsuccess">预览</a>
+                <a data-preview target="_blank" href="{{ route('Home::article',[$article]) }}" class="q5button btnsuccess">预览</a>
             </div>
 
         </div>
@@ -53,14 +55,134 @@
 
     <script>
 
-        let publish = document.querySelector("[data-publish]"),
-            preview = document.querySelector("[data-preview]")
+        let dataCategoryadd = document.querySelector('[data-categoryadd]');
+        dataCategoryadd.addEventListener("click", addData)
+        let cover = document.querySelector('[cover]')
 
-            publish.addEventListener('click',function (e) {
+        cover.addEventListener('click', function (e) {
+            const input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.click()
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                console.log(file)
+                const reader = new FileReader();
+                if ((file.size / 1024 / 1024) > 10) {
+                    Qin500.notify('danger', '文件大小超过10M');
+                    return false;
+                }
+                Qin500.uploading("{{ route('Admin::qngenerate_token') }}", "{{ env("QINIU_UPURL") }}", file, function (x) {
+                    cover.style.backgroundImage = 'url("' + "{{ env('QINIU_UPPREFIX') }}" + x.key + '")';
+                    cover.setAttribute('cover',"{{ env('QINIU_UPPREFIX') }}" + x.key)
+                })
 
             })
 
+        })
 
+        function addData(e) {
+            e.preventDefault()
+            Qin500.popw("添加分类", {url: "{{ route('Admin::category.create') }}"}, function (o) {
+                if (o.code == 200) {
+                    let category = document.querySelector('[name="category"]');
+                    category.insertAdjacentHTML('beforeend', `<option value="${o.data.id}">${o.data.name}</option>`)
+                    //关闭弹窗
+                    o.closepop();
+                    Qin500.notify("success", '添加成功');
+                } else {
+                    Qin500.notify('danger', o.msg)
+                }
+            })
+        }
+
+        let publish = document.querySelector("[data-publish]"),
+            preview = document.querySelector("[data-preview]")
+
+        publish.addEventListener('click', send)
+
+
+
+        function send(e) {
+            e.preventDefault()
+            let title = document.querySelector(`[name="title"]`),
+                category = document.querySelector(`[name="category"]`),
+                publish = document.querySelector(`[name="publish"]`),
+                editor = tinymce.get('q5_content_edit'),
+                content = editor.getContent(),
+                textContent = editor.getContent({format: 'text'})
+
+            let cover = document.querySelector('[cover]')
+            cover = cover.getAttribute('cover')
+
+            if (title.value == "") {
+                Qin500.notify('info', "请输入文章标题");
+                title.focus()
+                return;
+            }
+
+            if (category.value == 0) {
+                Qin500.notify('info', "请选择分类");
+                category.focus()
+                return;
+            }
+
+            if (content == "") {
+                Qin500.notify('info', "请输入文章内容");
+                editor.focus()
+                return;
+            }
+
+            let data = {
+                'title': title.value,
+                'cid': category.value,
+                'log_text': content,
+                'strip_text': textContent,
+                'publish': publish.value,
+
+            }
+
+
+            //先获取主图的图片
+            let imgurl = "";//如果主图和内容图片都不存在,那就后台系统随机抓取一张图片
+            let computedStyle = getComputedStyle(document.querySelector('[cover]'));
+            let backgroundImage = computedStyle.getPropertyValue("background-image");
+            if (backgroundImage != "none") {
+                imgurl = backgroundImage.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
+                imgurl = (new URL(imgurl)).href;
+            } else {
+                //如果主图图片不存在,就从内容里面获取一张图片
+                let dom = new DOMParser()
+                let domparse = dom.parseFromString(content, 'text/html');
+                if (domparse.querySelector('img') && domparse.querySelector('img').src) {
+                    imgurl = domparse.querySelector('img').src
+                    imgurl = (new URL(imgurl)).href;
+                } else {
+                    imgurl = ''
+                }
+            }
+
+
+            data.cover = imgurl;
+
+            Qin500.login(function () {
+                fetch("{{ route('Admin::article.update',[$article]) }}", {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: Qin500.jsonToformurl(data)
+                }).then(res => res.json()).then(x => {
+                    if (x.code == 200) {
+                        Qin500.notify('success', x.msg);
+                    } else {
+                        Qin500.notify('danger', x.msg);
+                    }
+                })
+            })
+
+
+        }
 
 
         tinymceInit()
@@ -111,11 +233,11 @@
                 /* enable automatic uploads of images represented by blob or data URIs*/
                 automatic_uploads: true,
                 paste_data_images: true, // 允许在粘贴时上传图片
-                images_upload_url: '/uploading', // 图片上传的 URL
+                images_upload_url: '{{ route('Admin::uploading') }}', // 图片上传的 URL
                 images_upload_handler: function (blobInfo, success, failure) {
                     return new Promise(function (resolve, reject) {
-                        Qin500.uploading(blobInfo.blob(), function (x) {
-                            resolve(x.url);
+                        Qin500.uploading("{{ route('Admin::qngenerate_token') }}", "{{ env("QINIU_UPURL") }}", blobInfo.blob(), function (x) {
+                            resolve("{{ env('QINIU_UPPREFIX') }}" + x.key);
                         }, function () {
                             reject("上传失败")
                         })
@@ -135,8 +257,8 @@
                             Qin500.notify('danger', '文件大小超过10M');
                             return false;
                         }
-                        Qin500.uploading(file, function (x) {
-                            cb(x.url, {title: x.name})
+                        Qin500.uploading("{{ route('Admin::qngenerate_token') }}", "{{ env("QINIU_UPURL") }}", file, function (x) {
+                            cb("{{ env('QINIU_UPPREFIX') }}" + x.key, {title: x.hash})
                         })
                     });
 

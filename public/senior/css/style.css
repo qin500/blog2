@@ -45,6 +45,8 @@ a {
     float: left;
     margin-right: 10px;
     margin-top: 10px;
+    width: 120px;
+    text-align: center;
 }
 
 .q5button:hover {
@@ -153,6 +155,13 @@ a {
     color: #656565;
 }
 
+.q5input .lab .add {
+    font-style: italic;
+    mso-row-margin-left: 20px;
+    color: red;
+    text-decoration-line: underline;
+}
+
 .q5input .form-control {
     display: block;
     width: 100%;
@@ -174,15 +183,18 @@ a {
     border: 1px solid #ddd;
     background-size: cover;
 }
-.q5input.line .lab{
+
+.q5input.line .lab {
     width: 120px;
     display: inline-block;
 }
-.q5input.line .form-control{
+
+.q5input.line .form-control {
     width: 220px;
     display: inline-block;
 }
-.q5input.line .btn{
+
+.q5input.line .btn {
     width: 120px;
     height: 35px;
     border-width: 0;
@@ -192,9 +204,11 @@ a {
     color: white;
     cursor: pointer;
 }
-.q5input.line .btn:hover{
+
+.q5input.line .btn:hover {
     opacity: 0.8;
 }
+
 .q5radio {
     position: relative;
     line-height: 35px;
@@ -290,10 +304,214 @@ a {
 .q5pop .darg-element .btns span:hover {
     background: #c3c3c3;
 }
-.q5pop .darg-element .drag-content{
-   padding: 20px;
+
+.q5pop .darg-element .drag-content {
+    padding: 20px;
 }
 
+/*登录面板*/
+#login_panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#login_panel .login_warp {
+    width: 380px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 50px 15px 30px;
+    position: relative;
+}
+
+#login_panel .login_warp .close {
+    position: absolute;
+    display: flex;
+    right: 0px;
+    top: 0;
+    font-size: 35px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    user-select: none;
+    background: #8a12e1;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-top-right-radius: 20px;
+}
+
+#login_panel .login_warp .message {
+    text-align: center;
+    color: var(--danger);
+    height: 35px;
+    line-height: 35px;
+    font-weight: bolder;
+}
+
+#login_panel .login_warp .close:hover {
+    color: white;
+}
+
+#login_panel .login_warp h2 {
+    color: var(--primary);
+    text-align: center;
+    line-height: 35px;
+    font-size: 1.5rem;
+    padding-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+#login_panel .login_warp [name="username"],
+#login_panel .login_warp [name="password"] {
+    width: 100%;
+    line-height: 35px;
+    padding: 5px;
+    margin: 10px 0;
+    outline-color: #8a12e1;
+    outline-style: none;
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid rgb(48, 44, 44);
+}
+
+#login_panel .login_warp [name="submit"] {
+    width: 100%;
+    background-color: var(--primary);
+    text-align: center;
+    padding: 10px 0;
+    border-width: 0;
+    border-radius: 25px;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#login_panel .login_warp [name="submit"]:hover {
+    opacity: 0.8;
+}
+
+#login_panel .login_warp [name="submit"][disabled="disabled"] {
+    background-color: #dcdcdc;
+}
+
+.q5dialogbox {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 111;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.q5dialogbox .dg_box {
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 300px;
+    max-width: 90%;
+    max-height: 80%;
+    z-index: 9999;
+}
+
+.q5dialogbox .dg_box .sy-title {
+    height: 45px;
+    color: #333;
+    line-height: 45px;
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+    padding: 0 12px;
+}
+
+.q5dialogbox .dg_box .sy-content {
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+    color: #666;
+    overflow-y: auto;
+}
+
+.q5dialogbox .dg_box .sy-btn {
+    /*height: 50%;*/
+    /*border-top: 1px solid #eee;*/
+    /*overflow: hidden;*/
+
+
+
+    height: 50%;
+    border-top: 1px solid #eee;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.q5dialogbox .dg_box .sy-btn button:nth-child(1) {
+    color: #888;
+    /*border-right: 1px solid #eee;*/
+}
+
+.q5dialogbox .dg_box button {
+    float: left;
+    border: 0;
+    color: #333;
+    cursor: pointer;
+    background: #fff;
+    width: 50%;
+    line-height: 45px;
+    font-size: 15px;
+    text-align: center;
+}
+
+/*分页*/
+.pagination {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    float: left;
+    list-style: none;
+    margin: 5px;
+}
+
+.pagination li span,
+.pagination li a {
+    display: block;
+    padding: 5px 15px;
+    line-height: 30px;
+    background: #fff;
+    color: #007bff;
+    border-radius: 4px;
+}
+
+.pagination li.active span,
+.pagination li a:hover {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.pagination:after {
+    clear: both;
+    display: block;
+    content: '';
+}
 
 .panel {
     padding-left: 250px;
@@ -307,6 +525,10 @@ a {
     margin-left: -250px;
     display: flex;
     flex-direction: column;
+}
+
+.panel.toggle {
+    padding-left: 0;
 }
 
 .panel_left .title {

@@ -64,50 +64,58 @@
 
         function delData(e) {
             e.preventDefault()
-
-            let link=e.target.href;
-            fetch(link,{
-                method:'post',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body:'_method=DELETE'
-            }).then(res=>{
-                return res.json()
-            }).then(o=>{
-                if(o.code == 200){
-                    Qin500.notify("success",'删除成功');
-                    e.target.closest('tr').remove()
-                }else{
-                    Qin500.notify('danger',o.msg)
-                }
+            Qin500.login(function () {
+                let link=e.target.href;
+                fetch(link,{
+                    method:'post',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body:'_method=DELETE'
+                }).then(res=>{
+                    return res.json()
+                }).then(o=>{
+                    if(o.code == 200){
+                        Qin500.notify("success",'删除成功');
+                        e.target.closest('tr').remove()
+                    }else{
+                        Qin500.notify('danger',o.msg)
+                    }
+                })
             })
+
 
         }
 
         function editData(e) {
             e.preventDefault()
-            Qin500.popw("编辑分类", {url: e.target.getAttribute('href')}, function (o) {
-                if(o.code == 200){
+            Qin500.login(function () {
+                Qin500.popw("编辑分类", {url: e.target.getAttribute('href')}, function (o) {
+                    if(o.code == 200){
 
-                    Qin500.notify("success",'更新成功',1000,function () {
-                        location.reload()
-                    });
-                }else{
-                    Qin500.notify('danger',o.msg)
-                }
+                        Qin500.notify("success",'更新成功',1000,function () {
+                            location.reload()
+                        });
+                    }else{
+                        Qin500.notify('danger',o.msg)
+                    }
+                })
             })
+
         }
 
         function addData(e) {
             e.preventDefault()
-            Qin500.popw("添加分类", {url: "{{ route('Admin::category.create') }}"}, function (o) {
-                if(o.code == 200){
-                    Qin500.notify("success",'添加成功')
-                }else{
-                    Qin500.notify('danger',o.msg)
-                }
+            Qin500.login(function () {
+                Qin500.popw("添加分类", {url: "{{ route('Admin::category.create') }}"}, function (o) {
+                    if(o.code == 200){
+                        Qin500.notify("success",'添加成功')
+                    }else{
+                        Qin500.notify('danger',o.msg)
+                    }
+                })
             })
+
         }
 
 

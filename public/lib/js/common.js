@@ -14,27 +14,46 @@ Qin500 = {
         }
         return urlstr.slice(0, -1);
     },
-    uploading: function (file, success, failure) {
+    uploading: function (url1, url2, file, success, failure) {
         Qin500.login(function (x) {
-            let xhr = new XMLHttpRequest(),
-                form = new FormData();
-            form.append('file', file);
-            xhr.withCredentials = true;
-            xhr.open("POST", "/uploading");
-            // xhr.setRequestHeader("Content-Type", 'multipart/form-data')
-            xhr.send(form);
-            xhr.onload = function (e) {
-                if (xhr.status === 200) {
-                    let str = JSON.parse(xhr.responseText);
-                    if (str.code == 1) {
-                        success && success(JSON.parse(xhr.responseText))
-                    } else if (str.code == 0) {
-                        failure && failure()
+            async function f() {
+                const tkreq1 = url1; // 第一个fetch请求的URL
+                const tkreq2 = url2; // 第二个fetch请求的URL
+
+                const response1 = await fetch(tkreq1, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
+                });
+                const data1 = await response1.json();
+                console.log(data1);
+                // 使用第一个请求的数据进行第二个请求
+
+                let formdata = new FormData();
+                formdata.append('token', data1.data.token);
+                formdata.append('file', file)
+
+                const response2 = await fetch(tkreq2, {
+                    method: 'POST',
+                    body: formdata,
+                    onUploadProgress: function(progressEvent) {
+                        const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+                        console.log(progress)
+                    }
+                });
+                // 监听上传进度
+
+
+                const data2 = await response2.json();
+                if (data2.key) {
+                    success(data2)
                 } else {
-                    failure && failure()
+                    failure()
                 }
             }
+
+            f();
         })
 
     },
@@ -84,8 +103,10 @@ Qin500 = {
                     }).then((d) => {
                         if (d.code == 200) {
                             Qin500.notify("success", "登录成功")
-                            document.querySelector("#login_topbtn").style.display = "none"
-                            document.querySelector("#login_topbtn").nextElementSibling.style.display = "block"
+                            if (document.querySelector("#login_topbtn")) {
+                                document.querySelector("#login_topbtn").style.display = "none"
+                                document.querySelector("#login_topbtn").nextElementSibling.style.display = "block"
+                            }
                             login_panel.querySelector('[name="submit"]').setAttribute('disabled', 'disabled')
                             setTimeout(() => {
                                 login_panel.style.display = "none"
@@ -104,6 +125,32 @@ Qin500 = {
             }
         })
 
+    },
+
+    diabox: function (content,cancel=false,callback) {
+        let diabox = `<div class="q5dialogbox">
+        <div class="dg_box">
+            <div class="sy-title">信息</div>
+            <div class="sy-content">${content}</div>
+            <div class="sy-btn">${ cancel ? '<button >取消</button>':''}
+                <button >确定</button>
+            </div>
+            </div>
+        </div>`
+
+        document.body.insertAdjacentHTML("afterbegin",diabox)
+        let q5dialogbox=document.querySelector('.q5dialogbox');
+        q5dialogbox.style.zIndex=Qin500.maxElMax('zIndex')
+        q5dialogbox.querySelectorAll('button').forEach((el,key)=>{
+            el.addEventListener('click',function (e) {
+                if(e.target.innerText === "确定"){
+                    callback && callback(true)
+                }else{
+                    callback && callback(false)
+                }
+                document.body.removeChild(q5dialogbox)
+            })
+        })
     },
     isLogin: function (callback) {
         fetch("/login", {
@@ -161,8 +208,6 @@ Qin500 = {
         <div class="drag-content">${contentText}</div>
     </div>
 </div>`
-
-
 
 
             document.body.insertAdjacentHTML("afterbegin", str)
@@ -231,12 +276,12 @@ Qin500 = {
             pop.addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                let m={}
-                let elements=Array.from(e.target.elements);
+                let m = {}
+                let elements = Array.from(e.target.elements);
 
                 //获取表单数据
                 elements.forEach(function (el, key, parent) {
-                    m[el.name]=el.value
+                    m[el.name] = el.value
                 })
 
                 fetch(pop.querySelector('form').getAttribute('action'), {
@@ -244,10 +289,15 @@ Qin500 = {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body:Qin500.jsonToformurl(m)
-                }).then(res=>{
+                    body: Qin500.jsonToformurl(m)
+                }).then(res => {
                     return res.json()
-                }).then(x=>{
+                }).then(x => {
+
+                    x.closepop = () => {
+                        document.body.removeChild(pop)
+                    }
+
                     callback && callback(x)
                 })
             })
@@ -255,9 +305,10 @@ Qin500 = {
         }
     }
     ,
-    dialog:function () {
+    dialog: function () {
 
     },
+
     notify: function (type, text, time = 3000, callback) {
         let q5notify = document.querySelector('#q5notify');
         if (!q5notify) {

@@ -1,6 +1,6 @@
 @if ($paginator->hasPages())
 
-    33333333333333333333333333333333333333333333333333
+
     <nav>
         <ul class="pagination">
             {{-- Previous Page Link --}}

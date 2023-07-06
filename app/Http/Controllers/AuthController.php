@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Helpers\ResponseHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -17,7 +19,6 @@ class AuthController extends Controller
 
     function login(Request $request)
     {
-
 
         if($request->method() == "GET"){
 
@@ -43,11 +44,11 @@ class AuthController extends Controller
 //        ]);
 
 //        if ($validator->fails()) {
-//            return returnJSON($validator->errors()->first());
+//            return  ResponseHelper::returnJSON($validator->errors()->first());
 //        }
 
         if (\auth()->check()) {
-            return returnJSON("已经登录了", "", 201);
+            return  ResponseHelper::returnJSON("已经登录了", "", 201);
         }
 
         $username = $request->input("username");
@@ -55,17 +56,17 @@ class AuthController extends Controller
 
 
         if ($username == "") {
-            return returnJSON("请输入用户名", "", 422);
+            return  ResponseHelper::returnJSON("请输入用户名", "", 422);
         }
         if ($password == "") {
-            return returnJSON("请输入密码", "", 422);
+            return  ResponseHelper::returnJSON("请输入密码", "", 422);
         }
         $a = Auth::attempt(['username' => $username, 'password' => $password]);
         if ($a) {
 //            $data=["menu"=>['exit'=>route()]];
-            return returnJSON("登录成功", "", 200);
+            return  ResponseHelper::returnJSON("登录成功", "", 200);
         } else {
-            return returnJSON("验证失败,用户名或者密码错误", "", 422);
+            return  ResponseHelper::returnJSON("验证失败,用户名或者密码错误", "", 422);
         }
 //
 //        dd($credentials->errors()->first());

@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string("title")->comment('标题');
             $table->string("cid")->comment('分类id');
             $table->string("publish")->comment('是否公开');
-            $table->string("view")->comment('点击量');
+            $table->string("views")->comment('点击量');
             $table->string("tag")->comment('标签');
             $table->string("log_text")->comment('原始文本');
             $table->string("strip_text")->comment('去除标签后文本');

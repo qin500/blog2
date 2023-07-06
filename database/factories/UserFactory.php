@@ -16,7 +16,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'username' => $this->faker->userName(),
+            'username' => "qin500",
             'logo' => "",
             'avatar' => "/images/img.png",
             'tongji' => "/images/img.png",

@@ -21,7 +21,10 @@
     <link href="/home/css/prism.css" type="text/css" rel="stylesheet">
     <link href="/home/css/font_2113112_ayxk7kfe5d6.css" rel="stylesheet" type="text/css">
     <link href="/lib/css/gl.css" rel="stylesheet" type="text/css">
-    <link href="/home/css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        document.write(`<link href="/home/css/style.css?random${Math.random()}" rel="stylesheet" type="text/css">`)
+    </script>
+{{--    <link href="/home/css/style.css?i=92299" rel="stylesheet" type="text/css">--}}
 
 </head>
 <body>
@@ -30,12 +33,11 @@
         <div class="wp">
             <div class="welcome">您好,朋友 现在是 <span class="time"></span></div>
             <div class="access">
-
                 <a class="login" id="login_topbtn" >登录</a>
                 <div class="login_succ" >
                     <a class="user" href="#"><img class="avatar" src="{{ $data->avatar }}" alt=""><span>在路上</span></a>
                     <div class="dropmenu">
-                        <a data-dashboard href="{{ route('Admin::index') }}">后台首页</a>
+                        <a target="_blank" data-dashboard href="{{ route('Admin::index') }}">后台首页</a>
                         <a data-artnew href="/p/newart">文章发布</a>
                         <a data-categoies href="/categories">分类管理</a>
                         <a data-updatepwd href="/access/update">密码修改</a>
@@ -52,7 +54,6 @@
         </div>
         <ul id="topmenu">
             <li class="item active"><a href="/">网站首页</a></li>
-            <li class="item"><a href="/categories/1">分类管理</a></li>
             <li class="item"><a href="/tool">在线工具</a></li>
             <li class="item"><a href="/">给我留言</a></li>
             <li class="item"><a href="/about">关于我</a></li>
@@ -84,10 +85,12 @@
 </div>
 
 <div id="search">
+    <form action="{{ route("Home::index") }}" method="get">
     <div class="search-warp">
-        <input type="text" name="text" class="text" placeholder="请输入要查询的关键字">
-        <button class="button">搜索</button>
+        <input type="text" name="text" value="{{  request()->input('text') }}" class="text" placeholder="请输入要查询的关键字">
+        <button class="button"  type="submit">搜索</button>
     </div>
+    </form>
 </div>
 <div class="container wp">
     <main>
@@ -177,7 +180,7 @@
 <div class="fix-evident">
     @if(\Illuminate\Support\Facades\Route::currentRouteName() == "Home::article")
         <span class="item" >
-        <a data-editarticle="">
+        <a href="{{ route('Admin::article.edit',[$article]) }}" data-editarticle="">
             <i class="iconfont icon-edit"></i>
         </a>
     </span>
@@ -192,7 +195,7 @@
 <script src="/home/js/prism.js"></script>
 <script src="/tinymce/tinymce.min.js"></script>
 <script src="/lib/js/common.js"></script>
-<script src="/home/js/script.js"></script>
+<script src="/home/js/script.js?rand=999"></script>
 @section("footer")
 @show
 </body>

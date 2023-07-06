@@ -29,7 +29,7 @@ Qin500.isLogin(function (bool) {
             switch (Object.keys(this.dataset)[0]) {
 
                 case "dashboard":
-                    window.open(this.href)
+                    // window.open(this.href)
                     break;
                 case "artnew":
                     console.log('呢哇1')
@@ -52,7 +52,7 @@ Qin500.isLogin(function (bool) {
                     }))
 
             }
-            e.preventDefault()
+            // e.preventDefault()
         })
     })
 

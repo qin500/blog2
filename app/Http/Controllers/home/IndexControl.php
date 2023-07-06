@@ -10,14 +10,19 @@ use Illuminate\Http\Request;
 
 class IndexControl extends Controller
 {
-    function index()
+    function index(Request $request)
     {
 
 
-        $list = Article::orderBy('created_at', 'desc')->paginate(10);
+
+        $list = Article::where('title', "like", "%" . $request->input('text') . "%")
+            ->orWhere('strip_text', "like", "%" . $request->input('text') . "%")
+            ->orderBy('created_at', 'desc')->paginate(10);
 
         return view("home.index", compact("list"));
     }
+
+
 
 
     function article(Request $request, Article $article)

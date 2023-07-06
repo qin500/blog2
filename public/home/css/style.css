@@ -92,31 +92,37 @@ header .tophead .access .login_succ {
 
     display: none;
 }
-header .tophead .access .login_succ .user{
-    color:red;
+
+header .tophead .access .login_succ .user {
+    color: red;
 }
 
-header .tophead .access .login_succ .dropmenu{
+header .tophead .access .login_succ .dropmenu {
     position: absolute;
     background-color: white;
-    border:1px solid #ddd;
+    border: 1px solid #ddd;
     display: none;
 }
-header .tophead .access .login_succ .dropmenu a{
-    padding:5px 20px;
+
+header .tophead .access .login_succ .dropmenu a {
+    padding: 5px 20px;
     display: block;
     border-bottom: 1px solid #ddd;
 }
-header .tophead .access .login_succ .dropmenu a:last-child{
+
+header .tophead .access .login_succ .dropmenu a:last-child {
     border-bottom-width: 0;
 }
-header .tophead .access .login_succ .dropmenu a:hover{
+
+header .tophead .access .login_succ .dropmenu a:hover {
     background-color: #ddd;
 }
-header .tophead .access .login_succ:hover .dropmenu{
+
+header .tophead .access .login_succ:hover .dropmenu {
     display: block;
 }
-header .tophead .access .login_succ .avatar{
+
+header .tophead .access .login_succ .avatar {
     width: 26px;
     height: 26px;
     border-radius: 50%;
@@ -576,51 +582,37 @@ footer .ft-desc .special {
 }
 
 /*分页*/
-.paging {
-
+.pagination {
     padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
-.paging .paging-warp {
-    margin: 0 auto;
-    overflow: hidden;
-    display: inline-block;
-    transform: translateX(-50%);
-    left: 50%;
-    position: relative;
-}
-
-.paging .paging-warp .total {
-    display: inline-block;
-    float: left;
-    margin-right: 10px;
-    line-height: 45px;
-    font-weight: bold;
-}
-
-.paging .paging-warp .list {
-    float: left;
-    overflow: hidden;
-}
-
-.paging .paging-warp .list li {
+.pagination li {
     float: left;
     list-style: none;
-    min-width: 45px;
-    height: 45px;
-    line-height: 45px;
-    padding: 0 20px;
-    background-color: var(--white);
-    margin-right: 10px;
-    cursor: pointer;
-    user-select: none;
+    margin: 5px;
 }
 
-.paging .paging-warp .list li:hover {
-    background-color: var(--primary);
-    color: var(--white)
+.pagination li  span,
+.pagination li a {
+    display: block;
+    padding: 5px 15px;
+    line-height: 30px;
+    background: #fff;
+    color: #007bff;
+    border-radius: 4px;
 }
-
+.pagination li.active span,
+.pagination li a:hover{
+    color: #fff;
+    background-color: #007bff;
+}
+.pagination:after{
+    clear: both;
+    display: block;
+    content: '';
+}
 /*文章*/
 .article {
     background-color: var(--white);
@@ -671,9 +663,11 @@ footer .ft-desc .special {
 .article .article_detail {
     padding: 20px;
 }
-.article .article_detail img{
+
+.article .article_detail img {
     max-width: 100%;
 }
+
 .article .article_detail p {
     line-height: 35px;
 }
@@ -984,64 +978,75 @@ footer .ft-desc .special {
     background: #4099ff;
 }
 
-.cabin{
+.cabin {
     background-color: white;
-    padding:20px;
+    padding: 20px;
     width: 100%;
 }
-.cabin h2{
+
+.cabin h2 {
     text-align: center;
-    padding:20px 0 ;
+    padding: 20px 0;
 
 }
-.cabin  .cabin_wp{
+
+.cabin .cabin_wp {
     display: flex;
 }
-.cabin  .cabin_wp .cabin_left{
+
+.cabin .cabin_wp .cabin_left {
     width: 250px;
     border-right: 1px solid #ddd;
     line-height: 30px;
-    padding-right:10px;
+    padding-right: 10px;
 }
-.cabin  .cabin_wp .cabin_left p{
+
+.cabin .cabin_wp .cabin_left p {
     cursor: pointer;
     text-indent: 2em;
     display: flex;
     justify-content: space-between;
 }
 
-.cabin  .cabin_wp .cabin_left p.active,
-.cabin  .cabin_wp .cabin_left p:hover,
-.cabin  .cabin_wp .cabin_left p:hover a{
+.cabin .cabin_wp .cabin_left p.active,
+.cabin .cabin_wp .cabin_left p:hover,
+.cabin .cabin_wp .cabin_left p:hover a {
     background-color: purple;
-    color:white;
+    color: white;
 
 }
-.cabin  .cabin_wp .cabin_left p.active a{
+
+.cabin .cabin_wp .cabin_left p.active a {
     color: white;
 }
-.cabin  .cabin_wp .cabin_left p a{
+
+.cabin .cabin_wp .cabin_left p a {
     flex: 1;
     display: block;
 }
-.cabin  .cabin_wp .cabin_left p span{
+
+.cabin .cabin_wp .cabin_left p span {
     width: 45px;
 }
-.cabin  .cabin_wp .cabin_right{
+
+.cabin .cabin_wp .cabin_right {
     flex: 1;
-    padding:10px;
+    padding: 10px;
 }
-.cabin  .cabin_wp .cabin_right .item{
+
+.cabin .cabin_wp .cabin_right .item {
     text-decoration: none;
     line-height: 35px;
 
 }
-.cabin  .cabin_wp .cabin_right .item .num{
+
+.cabin .cabin_wp .cabin_right .item .num {
     padding: 0 10px;
     font-style: italic;
 }
-.cabin  .cabin_wp .cabin_right .item a:hover{
-    color:var(--primary);
+
+.cabin .cabin_wp .cabin_right .item a:hover {
+    color: var(--primary);
     text-decoration: underline;
 }
 
@@ -1120,3 +1125,142 @@ footer .ft-desc .special {
     display: block;
     margin: auto;
 }
+
+@media screen and (max-width:420px) {
+
+    /*a, button {*/
+    /*    -webkit-tap-highlight-color: transparent; !* 适用于移动设备上的链接和按钮 *!*/
+    /*    -moz-tap-highlight-color: transparent;*/
+    /*    tap-highlight-color: transparent;*/
+    /*    outline: none; !* 去除点击元素的焦点边框 *!*/
+    /*}*/
+
+
+    body{
+        font-size: 12px;
+    }
+    .wp{
+        max-width: 100%;
+    }
+    header .tophead .access .login_succ {
+        right: 20px;
+        position: relative;
+    }
+    header .tophead .access .login_succ .dropmenu a{
+        white-space: nowrap;
+    }
+    .logo,.logo a{
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+    #topmenu{
+        margin-top:0;
+    }
+    #topmenu .item {
+        margin-left: 3px;
+        padding: 10px 15px;
+    }
+    #topmenu .item a{
+        font-size: 14px;
+    }
+    #search {
+        padding: 20px 0;
+    }
+    #search .search-warp{
+        width: 85%;
+    }
+    main{
+        margin-left: 5px;
+        margin-right: 5px;
+
+    }
+    aside{
+        display: none;
+    }
+    .artList .newArticle .item {
+        padding: 10px;
+        margin-bottom:10px;
+    }
+    .artList .newArticle .item a i {
+        width: 110px;
+        height: 80px;
+        margin-right: 10px;
+        position: relative;
+        top: 28px;
+    }
+    .artList .newArticle .item a h2 {
+        position: relative;
+        top: -10px;
+        left: -110px;
+        font-size: 18px;
+        white-space: nowrap;
+    }
+    .artList .newArticle .item p{
+        font-size: 14px;
+        -webkit-line-clamp:3;
+    }
+    .artList .newArticle .item .article-lists-detail {
+        position: static;
+        margin-top: 31px;
+    }
+    .artList .newArticle .item .article-lists-detail > span{
+        font-size: 12px;
+    }
+    .artList .newArticle .item .article-lists-view{
+        display: none;
+    }
+
+
+
+    .article{
+        padding: 10px;
+    }
+    .article h1 {
+        font-size: 1.2rem;
+    }
+    .article .article_detail {
+        padding: 5px;
+    }
+    .post-my {
+        padding: 10px;
+        margin-top: 10px;
+    }
+    .post-my .avatar {
+        width: 55px;
+        height: 55px;
+    }
+    .post-my .avatar img {
+        width: 55px;
+        height: 55px;
+    }
+    .post-my .qr {
+        width: 55px;
+    }
+    .post-my .qr img {
+        width: 55px;
+        height: 55px;
+    }
+
+
+
+    footer .ftnav a {
+        padding: 0px 7px;
+        font-size: 14px;
+    }
+    footer .ft-desc {
+        padding: 10px 0;
+    }
+    footer .ft-desc p{
+        line-height: 1.3rem;
+    }
+    .pagination li {
+        margin: 2px;
+    }
+    .pagination li span, .pagination li a{
+        padding: 2px 10px;
+        line-height: 20px;
+    }
+}
+
+
